@@ -16,7 +16,7 @@ export const Heading = () => {
       </h3>
       <Button asChild>
         <Link href="/documents">
-          Take Note
+          Let's Note
           <ArrowRight className="h-4 w-4 ml-1" />
         </Link>
       </Button>
