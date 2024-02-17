@@ -6,8 +6,8 @@ import Link from "next/link";
 
 export const Heading = () => {
   return (
-    <div className="space-y-4 max-w-full">
-      <h1 className="text-3xl sm:text-5xl md:text-6xl  font-bold">
+    <div className="space-y-4 max-w-full pt-4">
+      <h1 className="text-3xl sm:text-5xl  font-bold">
         Capture, Organize, Inspire: Your Ideas, Your Notes, Your Way.
       </h1>
       <h3 className="text-base sm:text-xl md:text-2xl font-medium">
