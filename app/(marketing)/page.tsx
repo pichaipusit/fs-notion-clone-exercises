@@ -2,10 +2,10 @@ import { Footer } from "./_components/footer";
 import { Heading } from "./_components/heading";
 import { Heroes } from "./_components/heroes";
 
-export default function Home() {
+export default function MarketingPage() {
   return (
-    <div>
-      <div>
+    <div className="min-h-full flex flex-col dark:bg-[#1F1F1F] ">
+      <div className="flex flex-col justify-center items-center gap-y-8 flex-1 px-6 pb-10 text-center">
         <Heading />
         <Heroes />
       </div>
