@@ -1,7 +1,12 @@
 "use client";
 import { ModeToggle } from "@/components/mode-toggle";
 
-export const Navbar = () => {
+interface NavbarProps {
+  isCollapsed: boolean;
+  onResetWidth: () => void;
+}
+
+export const Navbar = ({ isCollapsed, onResetWidth }: NavbarProps) => {
   return (
     <nav className="flex items-center justify-between p-2">
       <span className="ml-8">Title</span>

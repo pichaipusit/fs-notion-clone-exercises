@@ -2,14 +2,42 @@
 import { UserButton, useUser } from "@clerk/clerk-react";
 import { Navbar } from "./navbar";
 import { ElementRef, useRef, useState } from "react";
-import { ChevronsLeft, MenuIcon } from "lucide-react";
+import {
+  ChevronsLeft,
+  MenuIcon,
+  Plus,
+  PlusCircle,
+  Search,
+  Settings,
+  Trash,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useMediaQuery } from "usehooks-ts";
+import { Item } from "./item";
+import { UserItem } from "./user-item";
+import { DocumentList } from "./document-list";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { useSettings } from "@/hooks/use-settings";
+import { useSearch } from "@/hooks/use-search";
+import { TrashBox } from "./trash-box";
+import { toast } from "sonner";
+import { useMutation } from "convex/react";
+import { api } from "@/convex/_generated/api";
+import { useParams, useRouter } from "next/navigation";
 
 export const Navigation = () => {
   const { user } = useUser();
   const isMobile = useMediaQuery("(max-width: 768px)");
+  const settings = useSettings();
+  const search = useSearch();
+  const create = useMutation(api.documents.create);
 
+  const router = useRouter();
+  const params = useParams();
   const sidebarRef = useRef<ElementRef<"aside">>(null);
   const navbarRef = useRef<ElementRef<"div">>(null);
   const isResizingRef = useRef(false);
@@ -59,7 +87,7 @@ export const Navigation = () => {
     }
   };
 
-  const resetWidth = (e: React.MouseEvent) => {
+  const resetWidth = () => {
     if (sidebarRef.current && navbarRef.current) {
       setIsCollapsed(false);
       setIsResetting(true);
@@ -70,6 +98,18 @@ export const Navigation = () => {
 
       setTimeout(() => setIsResetting(false), 300);
     }
+  };
+
+  const handleCreate = () => {
+    const promise = create({ title: "Untitled" }).then((documentId) =>
+      router.push(`/documents/${documentId}`)
+    );
+
+    toast.promise(promise, {
+      loading: "Creating a new note...",
+      success: "New note created!",
+      error: "Failed to create a new note.",
+    });
   };
   return (
     <>
@@ -90,6 +130,27 @@ export const Navigation = () => {
         >
           <ChevronsLeft className="h-6 w-6" />
         </div>
+        <div>
+          <UserItem />
+          <Item label="Search" icon={Search} isSearch onClick={search.onOpen} />
+          <Item label="Settings" icon={Settings} onClick={settings.onOpen} />
+          <Item onClick={handleCreate} label="New page" icon={PlusCircle} />
+        </div>
+        <div className="mt-4">
+          <DocumentList />
+          <Item onClick={handleCreate} icon={Plus} label="Add a page" />
+          <Popover>
+            <PopoverTrigger className="w-full mt-4">
+              <Item label="Trash" icon={Trash} />
+            </PopoverTrigger>
+            <PopoverContent
+              className="p-0 w-72"
+              side={isMobile ? "bottom" : "right"}
+            >
+              <TrashBox />
+            </PopoverContent>
+          </Popover>
+        </div>
 
         <div
           onClick={resetWidth}
@@ -108,11 +169,24 @@ export const Navigation = () => {
       <div
         ref={navbarRef}
         className={cn(
-          "absolute left-60 top-0 w-[calc(100%-240px)] h-fit z-[9999] ",
-          isResetting && "transition-all ease-in-out duration-300"
+          "absolute top-0 z-[99999] left-60 w-[calc(100%-240px)]",
+          isResetting && "transition-all ease-in-out duration-300",
+          isMobile && "left-0 w-full"
         )}
       >
-        <Navbar />
+        {!!params.documentId ? (
+          <Navbar isCollapsed={isCollapsed} onResetWidth={resetWidth} />
+        ) : (
+          <nav className="bg-transparent px-3 py-2 w-full">
+            {isCollapsed && (
+              <MenuIcon
+                onClick={resetWidth}
+                role="button"
+                className="h-6 w-6 text-muted-foreground"
+              />
+            )}
+          </nav>
+        )}
       </div>
     </>
   );
