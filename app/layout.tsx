@@ -7,6 +7,7 @@ import { ConvexClientProvider } from "@/components/providers/convex-provider";
 
 import "./globals.css";
 import { EdgeStoreProvider } from "@/lib/edgestore";
+import { ModalProvider } from "@/components/providers/modal-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -47,6 +48,7 @@ export default function RootLayout({
               storageKey="note-taker-0"
             >
               <Toaster position="bottom-center" />
+              <ModalProvider />
               {children}
             </ThemeProvider>
           </EdgeStoreProvider>

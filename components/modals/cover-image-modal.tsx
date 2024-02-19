@@ -9,7 +9,7 @@ import { useCoverImage } from "@/hooks/use-cover-image";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import { useEdgeStore } from "@/lib/edgestore";
-import { SingleImageDropzone } from "../ui/single-image-dropzone";
+import { SingleImageDropzone } from "../single-image-dropzone";
 
 export const CoverImageModal = () => {
   const params = useParams();
