@@ -116,7 +116,7 @@ export const Navigation = () => {
       <aside
         ref={sidebarRef}
         className={cn(
-          "group/sidebar relative w-60 h-full bg-secondary flex z-[9999] overflow-x-auto  flex-col items-center",
+          "group/sidebar relative w-60 h-full bg-secondary flex z-[50] overflow-y-auto  flex-col items-center",
           isResetting && "transition-all ease-in-out duration-300"
         )}
       >
@@ -161,7 +161,7 @@ export const Navigation = () => {
       <MenuIcon
         onClick={resetWidth}
         className={cn(
-          "hidden absolute top-2 left-2 cursor-pointer z-[10000]",
+          "hidden absolute top-2 left-2 cursor-pointer z-[100]",
           isCollapsed && "block"
         )}
       />
@@ -169,7 +169,7 @@ export const Navigation = () => {
       <div
         ref={navbarRef}
         className={cn(
-          "absolute top-0 z-[99999] left-60 w-[calc(100%-240px)]",
+          "absolute top-0 z-[50] left-60 w-[calc(100%-240px)]",
           isResetting && "transition-all ease-in-out duration-300",
           isMobile && "left-0 w-full"
         )}
