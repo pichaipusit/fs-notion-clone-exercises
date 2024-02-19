@@ -158,13 +158,6 @@ export const Navigation = () => {
           className="group-hover/sidebar:opacity-100 opacity-0 transition absolute w-1 h-full top-0 right-0 bg-primary/10 cursor-ew-resize"
         />
       </aside>
-      <MenuIcon
-        onClick={resetWidth}
-        className={cn(
-          "hidden absolute top-2 left-2 cursor-pointer z-[100]",
-          isCollapsed && "block"
-        )}
-      />
 
       <div
         ref={navbarRef}
