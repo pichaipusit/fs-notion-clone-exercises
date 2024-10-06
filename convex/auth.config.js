@@ -1,7 +1,7 @@
 export default {
   providers: [
     {
-      domain: "https://ace-starfish-34.clerk.accounts.dev",
+      domain: "https://refined-muskox-9.clerk.accounts.dev",
       applicationID: "convex",
     },
   ],
